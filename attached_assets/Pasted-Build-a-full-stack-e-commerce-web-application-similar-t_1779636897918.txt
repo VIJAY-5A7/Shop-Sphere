@@ -1,0 +1,161 @@
+Build a full-stack e-commerce web application similar to Amazon/Flipkart with the following complete specifications:
+
+---
+
+## TECH STACK
+
+Frontend: React.js (with Vite), TailwindCSS, Redux Toolkit (state management), React Router v6, Axios
+Backend: Node.js + Express.js
+Database: MongoDB (Mongoose ODM) + Redis (for caching & sessions)
+Authentication: JWT (access + refresh tokens) + Google OAuth 2.0
+File Storage: Cloudinary (product images)
+Payments: Razorpay (or Stripe) integration
+Search: Elasticsearch or MongoDB Atlas Search
+
+---
+
+## CORE FEATURES TO BUILD
+
+### 1. USER MODULE
+- Register / Login / Logout
+- Google OAuth login
+- Email verification (OTP)
+- Forgot password / Reset password
+- JWT with refresh token rotation
+- Role-based access: customer, seller, admin
+
+### 2. PRODUCT MODULE
+- Product listing with infinite scroll / pagination
+- Product detail page with:
+  - Image gallery (zoom on hover)
+  - Size/color/variant selector
+  - Stock availability check
+  - Price with discount badge
+  - EMI calculator
+- Product search with filters:
+  - Category, brand, price range, rating, availability
+  - Sort by: relevance, price low-high, newest, bestseller
+- Product reviews & ratings (with pagination)
+- Recently viewed products
+
+### 3. CART & WISHLIST
+- Add to cart / Remove / Update quantity
+- Cart persistence (localStorage + DB sync on login)
+- Wishlist (save for later)
+- Move items between cart and wishlist
+- Real-time stock check on checkout
+
+### 4. CHECKOUT FLOW
+- Address management (add/edit/delete multiple addresses)
+- Delivery date estimation
+- Coupon / promo code application
+- Order summary with GST breakdown
+- Payment options:
+  - Credit/Debit card
+  - UPI
+  - Net Banking
+  - Cash on Delivery
+  - Wallet
+- Order confirmation with email receipt
+
+### 5. ORDER MANAGEMENT
+- Order history with filters (by date, status)
+- Order detail view with tracking timeline
+- Cancel order (with reason)
+- Return & refund request flow
+- Invoice PDF download
+- Re-order functionality
+
+### 6. SELLER DASHBOARD
+- Seller registration & verification
+- Add / Edit / Delete products
+- Inventory management
+- Order fulfillment (mark as shipped, add tracking)
+- Sales analytics:
+  - Revenue chart (daily/weekly/monthly)
+  - Top products
+  - Return rate
+
+### 7. ADMIN PANEL
+- User management (ban/unban/verify)
+- Seller approval workflow
+- Product moderation
+- Category & brand management
+- Coupon / Banner / Flash sale management
+- Platform analytics dashboard:
+  - Total revenue, orders, users
+  - Category-wise sales
+  - Charts (bar, line, pie)
+
+### 8. NOTIFICATIONS
+- In-app notifications (order updates, offers)
+- Email notifications (Nodemailer)
+- SMS notifications (Twilio or MSG91)
+- Push notifications (Firebase FCM)
+
+---
+
+## DATABASE SCHEMA (MongoDB)
+
+Design these collections:
+- Users (name, email, password hash, role, addresses[], wishlist[], oauthProvider)
+- Products (title, slug, description, images[], category, brand, variants[], price, discount, stock, seller, ratings, reviews[])
+- Categories (name, slug, parent, image, featured)
+- Orders (user, items[], shippingAddress, paymentMethod, paymentStatus, orderStatus, timeline[], invoice)
+- Reviews (user, product, rating, title, body, images[], helpfulVotes)
+- Coupons (code, type, value, minOrder, maxDiscount, expiryDate, usageLimit)
+- Cart (user, items[{product, variant, qty}])
+- Sellers (user, shopName, GSTIN, bankDetails, verified)
+
+---
+
+## API DESIGN (REST)
+
+Build these route groups:
+- POST /api/auth/register, /login, /logout, /refresh, /google, /forgot-password, /reset-password
+- GET/POST/PUT/DELETE /api/products (CRUD + search + filter)
+- GET /api/categories (tree structure)
+- GET/POST/DELETE /api/cart
+- GET/POST/PUT/DELETE /api/orders
+- GET/POST/DELETE /api/wishlist
+- POST /api/payments/create-order, /verify
+- GET/POST /api/reviews
+- GET /api/seller/dashboard, /api/admin/dashboard
+
+---
+
+## UI PAGES TO BUILD
+
+1. Homepage: Hero banner, category grid, featured products, flash sale timer, trending, footer
+2. Product Listing Page (PLP): Sidebar filters, sort dropdown, product grid cards, pagination
+3. Product Detail Page (PDP): Image gallery, variant picker, add to cart, reviews section
+4. Cart Page: Item list, quantity stepper, price summary, coupon input
+5. Checkout Page: Address step → Payment step → Confirmation step
+6. Order History Page
+7. Order Detail / Tracking Page
+8. Wishlist Page
+9. User Profile (edit info, manage addresses)
+10. Seller Dashboard (analytics, product CRUD, order management)
+11. Admin Dashboard (full platform management)
+12. Login / Register / Forgot Password Pages
+13. 404 / Error pages
+
+---
+
+## ADDITIONAL REQUIREMENTS
+
+- Fully responsive (mobile-first design)
+- Dark mode support
+- SEO-friendly (React Helmet / meta tags)
+- Loading skeletons for all data-fetching states
+- Optimistic UI updates for cart/wishlist
+- Rate limiting on APIs (express-rate-limit)
+- Input validation (Joi / Zod on backend, react-hook-form on frontend)
+- Error boundary and global error handling
+- Image optimization (lazy loading, WebP format via Cloudinary)
+- Dockerize the app (docker-compose for mongo + redis + app)
+- Environment config via .env files
+
+---
+
+Start by scaffolding the project structure for both frontend and backend, then implement each module step by step starting with Auth → Products → Cart → Orders → Payments → Dashboards.
