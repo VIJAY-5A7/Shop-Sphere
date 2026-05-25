@@ -151,7 +151,7 @@ function HomePage() {
               </Link>
             </div>
             <div className="flex items-center justify-center gap-8 mt-10 text-sm text-slate-400">
-              <div className="text-center"><div className="font-bold text-foreground text-xl">13+</div><div>Products</div></div>
+              <div className="text-center"><div className="font-bold text-foreground text-xl">50+</div><div>Products</div></div>
               <div className="text-center"><div className="font-bold text-foreground text-xl">6</div><div>Categories</div></div>
               <div className="text-center"><div className="font-bold text-foreground text-xl">Free</div><div>Delivery above ₹499</div></div>
             </div>
